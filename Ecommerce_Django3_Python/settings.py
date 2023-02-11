@@ -54,7 +54,9 @@ INSTALLED_APPS = [
 
     # MyApps
     'accounts',
+    'home',
 ]
+
 
 
 SITE_ID = 1
