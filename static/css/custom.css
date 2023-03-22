@@ -1,0 +1,12 @@
+body.bg-color {
+    background-color: rgb(229, 253, 196);
+}
+
+
+label.label-qty {
+    margin-bottom: 1%;
+}
+
+input.qty-control {
+    max-width: 50%;
+}
