@@ -52,11 +52,23 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    # Django Crispy Forms
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     # MyApps
     'accounts',
     'home',
+    'products',
+    'cart',
+    'checkout',
+
 ]
 
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 SITE_ID = 1
@@ -77,7 +89,10 @@ ROOT_URLCONF = 'Ecommerce_Django3_Python.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,9 +100,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'cart.contexts.cart_contents',
             ],
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = 'Ecommerce_Django3_Python.wsgi.application'
@@ -155,15 +172,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATICFILES_LOCATION = 'static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     )
 
-
+MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -174,4 +191,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Stripe Keys
+STRIPE_PUBLISHABLE = os.getenv("STRIPE_PUBLISHABLE")
+STRIPE_SECRET = os.getenv("STRIPE_SECRET")
